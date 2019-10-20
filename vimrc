@@ -1,6 +1,3 @@
-" do not load defaults if ~/.vimrc is missing
-"let skip_defaults_vim=1
-
 set autoindent
 set smartindent
 set smarttab
@@ -11,6 +8,7 @@ set tabstop=4
 set expandtab
 set cursorline
 set nocompatible 
+set encoding=utf-8
 
 set hidden
 set backupdir=~/.vim/backup/
@@ -52,10 +50,11 @@ map <C-x>  :bn<bar>bd#<ENTER>
 noremap <C-a> ggVG<CR>
 
 "open file containing the tag found in new tab
-"nnoremap  <C-]> :e wincmd ]<CR>
+" nnoremap  <C-]> :e wincmd ]<CR>
+" g] to navigate the tags
 
 set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tagbar#enabled = 1
 "autocmd FileType * unlet! g:airline#extensions#whitespace#checks
@@ -66,7 +65,7 @@ let g:airline#extensions#tagbar#enabled = 1
 "let g:solarized_termcolors=256
 
 set background=dark
-colo hybrid 
+colo Benokai
 
 " case insensitive
 set ic
@@ -74,14 +73,26 @@ set ic
  "set counter num
 set nu
 
+"set guifont=FuraMono-Regular\ Powerline:s12
+" highlight colors
+hi CurrentWord ctermbg=53
+hi CurrentWordTwins ctermbg=135
+
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'itchyny/calendar.vim'
 Plugin 'vim-airline/vim-airline'
+    let g:airline_theme = 'kolor'
 Plugin 'ludovicchabant/vim-gutentags'
     let g:gutentags_enabled = 0
     let g:gutentags_cache_dir = "/tmp/vim"
+    "let g:gutentags_modules = ['ctags', 'gtags-cscope']    
+    let g:gutentags_define_advanced_commands = 1
+Plugin 'jsfaint/gen_tags.vim'
+    let g:gen_tags#cache_dir = "/tmp/vim"
+
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 
@@ -103,12 +114,14 @@ Plugin 'Shougo/neocomplete.vim'
 
 Plugin 'Lokaltog/vim-powerline'
     " Use unicode symbols in powerline
-    "let g:Powerline_symbols = 'fancy'
+    let g:Powerline_symbols = 'unicode'
     " For devicons
     let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 1
 
 Plugin 'Yggdroot/indentLine'
     let g:indentLine_setColors = 1
+"    let g:vim_json_syntax_conceal = 0
 
 Plugin 'scrooloose/nerdtree'
     " Ctrl+d to toggle NerdTree
@@ -125,15 +138,37 @@ Plugin 'scrooloose/nerdtree'
     " Change dir to the dir of the new root
 "    let NERDTreeChDirMode = 2
     " Single click to open files and expand folders.
-     let NERDTreeMouseMode = 3
+    let NERDTreeMouseMode = 3
     " Display hidden files
     " let NERDTreeShowHidden=1
     " Do not display these files
-     let NERDTreeIgnore=['\.DS_Store', '\~$', '\.swp']
+    let NERDTreeIgnore=['\.DS_Store', '\~$', '\.swp']
 "    let g:NERDTreeDirArrowExpandable = '▸'
 "    let g:NERDTreeDirArrowCollapsible = '▾'
 
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'flazz/vim-colorschemes'
+
+"Plugin 'joshdick/onedark.vim'
+
+    "let g:airline_theme='onedark'
+Plugin 'dominikduda/vim_current_word'
+    " Twins of word under cursor:
+    let g:vim_current_word#highlight_twins = 1
+    " The word under cursor:
+    let g:vim_current_word#highlight_current_word = 1
+Plugin 'ctrlpvim/ctrlp.vim'
+
 
 call vundle#end()
+
+"let g:airline_symbols_ascii = 0
+"let g:airline#extensions#tabline#left_sep = ''
+"let g:airline#extensions#tabline#left_alt_sep = ''
+"let g:airline#extensions#tabline#right_sep = ''
+"let g:airline#extensions#tabline#right_alt_sep = ''
+"let g:airline#extensions#tabline#formatter = 'default'
+
+autocmd Filetype json :IndentLinesDisable
+
 
